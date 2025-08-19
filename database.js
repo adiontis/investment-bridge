@@ -2,22 +2,15 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-// Use writable directory in Railway (production), otherwise local file
+// Safer path handling for production (fallback to local file if /data is unwritable)
 const dbPath = process.env.NODE_ENV === 'production'
-? path.join('/tmp', 'microvest.db')
+? path.join(__dirname, 'microvest.db') // safer than /data/
 : path.join(__dirname, 'microvest.db');
 
-// Ensure directory exists (mainly for local dev)
-const dbDir = path.dirname(dbPath);
-if (!fs.existsSync(dbDir)) {
-fs.mkdirSync(dbDir, { recursive: true });
-}
+// Ensure the file exists or will be created
+fs.openSync(dbPath, 'a');
 
-const db = new sqlite3.Database(dbPath, (err) => {
-if (err) {
-console.error('Failed to open DB:', err);
-}
-});
+const db = new sqlite3.Database(dbPath);
 
 const initDatabase = () => {
 return new Promise((resolve, reject) => {
@@ -111,7 +104,7 @@ FOREIGN KEY (user_id) REFERENCES users (id)
 )
 `);
 
-// Development only: insert sample data
+// Dev-only sample seed data
 if (process.env.NODE_ENV !== 'production') {
 db.run(`
 INSERT OR IGNORE INTO businesses (
