@@ -1,3 +1,5 @@
+// database.js
+
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
@@ -99,9 +101,8 @@ FOREIGN KEY (user_id) REFERENCES users (id)
 )
 `);
 
-// Insert sample data for development
+// Sample data for development
 if (process.env.NODE_ENV !== 'production') {
-// Sample businesses
 db.run(`
 INSERT OR IGNORE INTO businesses (
 id, name, description, monthly_revenue, risk_rating, risk_score,
@@ -119,3 +120,6 @@ resolve();
 });
 });
 };
+
+// Export the initDatabase function
+module.exports = { initDatabase };
