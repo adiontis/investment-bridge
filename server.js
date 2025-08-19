@@ -38,12 +38,12 @@ app.use('/api/investments', investmentRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/users', userRoutes);
 
-// Serve main app
+// Main app
 app.get('*', (req, res) => {
 res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Weekly payout job (Wednesdays at 12:00 PM EST)
+// Cron: Weekly payout job (Wednesdays 12PM EST)
 cron.schedule('0 12 * * 3', () => {
 console.log('Running weekly payout processing...');
 processWeeklyPayouts();
@@ -51,7 +51,7 @@ processWeeklyPayouts();
 timezone: "America/New_York"
 });
 
-// Initialize database and start server
+// DB + Server start
 initDatabase().then(() => {
 app.listen(PORT, () => {
 console.log(`Microvest server running on port ${PORT}`);
