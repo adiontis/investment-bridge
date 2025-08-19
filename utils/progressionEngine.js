@@ -33,4 +33,4 @@ throw new Error('Invalid tier configuration');
 
 // 3. Calculate risk percentage and get multiplier
 const riskPercentage = investmentAmount
-```
+
