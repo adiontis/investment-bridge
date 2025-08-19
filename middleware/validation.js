@@ -56,4 +56,4 @@ validateRegistration,
 validateLogin,
 validateInvestment
 };
-```
+
