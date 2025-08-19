@@ -54,7 +54,7 @@ timezone: "America/New_York"
 // Initialize database and start server
 initDatabase().then(() => {
 app.listen(PORT, () => {
-console.log(`Investment Bridge server running on port ${PORT}`);
+console.log(`Microvest server running on port ${PORT}`);
 console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 }).catch(err => {
