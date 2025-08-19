@@ -605,3 +605,10 @@ body::before {
   width: auto;
   object-fit: contain;
 }
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
