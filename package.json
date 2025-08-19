@@ -1,7 +1,7 @@
 {
-"name": "investment-bridge",
+"name": "microvest",
 "version": "1.0.0",
-"description": "Investment bridge platform connecting startups with everyday investors",
+"description": "Micro-investment platform connecting startups with everyday investors",
 "main": "server.js",
 "scripts": {
 "start": "node server.js",
@@ -28,4 +28,3 @@
 "node": ">=16.0.0"
 }
 }
-```
