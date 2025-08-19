@@ -19,4 +19,4 @@ next();
 }
 
 module.exports = authenticateToken;
-```
+
