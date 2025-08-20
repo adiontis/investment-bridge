@@ -1,4 +1,3 @@
-app.use(express.static('public'));
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -17,6 +16,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(express.static('public'));
 app.use(helmet({
 contentSecurityPolicy: {
 directives: {
