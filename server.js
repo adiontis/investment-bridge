@@ -15,52 +15,73 @@ const { processWeeklyPayouts } = require('./utils/escrow');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ─────────────────────────────────────────────────────────────
 // Middleware
-app.use(express.static('public'));
+// ─────────────────────────────────────────────────────────────
+
+// Serve static files from 'public' folder (must be FIRST!)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Helmet for security headers
 app.use(helmet({
-contentSecurityPolicy: {
-directives: {
-defaultSrc: ["'self'"],
-styleSrc: ["'self'", "'unsafe-inline'"],
-scriptSrc: ["'self'", "'unsafe-inline'"],
-imgSrc: ["'self'", "data:", "https:"],
-},
-},
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
 }));
+
+// CORS
 app.use(cors());
+
+// Body parsers
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(express.static('public'));
 
-// Routes
+// ─────────────────────────────────────────────────────────────
+// API Routes
+// ─────────────────────────────────────────────────────────────
+
 app.use('/api/auth', authRoutes);
 app.use('/api/businesses', businessRoutes);
 app.use('/api/investments', investmentRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/users', userRoutes);
 
-// Main app
+// ─────────────────────────────────────────────────────────────
+// Fallback to index.html (for client-side routing)
+// ─────────────────────────────────────────────────────────────
+
 app.get('*', (req, res) => {
-res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Cron: Weekly payout job (Wednesdays 12PM EST)
+// ─────────────────────────────────────────────────────────────
+// Cron Job: Weekly payout job (Wednesdays 12PM EST)
+// ─────────────────────────────────────────────────────────────
+
 cron.schedule('0 12 * * 3', () => {
-console.log('Running weekly payout processing...');
-processWeeklyPayouts();
+  console.log('Running weekly payout processing...');
+  processWeeklyPayouts();
 }, {
-timezone: "America/New_York"
+  timezone: 'America/New_York'
 });
 
-// DB + Server start
+// ─────────────────────────────────────────────────────────────
+// DB Init & Server Start
+// ─────────────────────────────────────────────────────────────
+
 initDatabase().then(() => {
-app.listen(PORT, () => {
-console.log(`Microvest server running on port ${PORT}`);
-console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+  app.listen(PORT, () => {
+    console.log(`🚀 Microvest server running on port ${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
 }).catch(err => {
-console.error('Failed to initialize database:', err);
-process.exit(1);
+  console.error('❌ Failed to initialize database:', err);
+  process.exit(1);
 });
 
 module.exports = app;
