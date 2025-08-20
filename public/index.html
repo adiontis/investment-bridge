@@ -124,27 +124,7 @@
   <!-- Toast -->
   <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Script -->
-  <script>
-    function showPage(pageId) {
-      console.log("Showing page:", pageId);
-      const pages = document.querySelectorAll(".page");
-      pages.forEach(page => page.classList.remove("active"));
-
-      const target = document.getElementById(pageId);
-      if (target) {
-        target.classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        console.error("Page not found:", pageId);
-      }
-    }
-
-    function logout() {
-      alert("Logout functionality coming soon!");
-    }
-
-    console.log("JavaScript loaded");
-  </script>
+  <!-- External JS -->
+  <script src="/js/app.js"></script>
 </body>
 </html>
