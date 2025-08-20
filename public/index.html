@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .page { display: none; }
+    .page.active { display: block; }
+  </style>
 </head>
 <body>
 
@@ -34,7 +38,6 @@
 
   <!-- Main Content -->
   <main class="main">
-    <!-- Home Page -->
     <div id="home" class="page active">
       <section class="hero">
         <div class="container">
@@ -50,36 +53,17 @@
       </section>
     </div>
 
-    <!-- Register Page -->
     <div id="register" class="page">
       <div class="auth-container">
         <div class="auth-card">
           <h2>Create Your Account</h2>
-          <p>Join thousands of micro-investors supporting innovative startups</p>
-          <form id="registerForm" class="auth-form">
-            <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" id="firstName" name="firstName" required />
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" name="lastName" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number (Optional)</label>
-              <input type="tel" id="phone" name="phone" />
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" required />
-            </div>
-            <div class="disclaimer">
-              <p><strong>Investment Warning:</strong> Invest at your own risk. No refunds once funds are committed. Past performance is not indicative of future results.</p>
-            </div>
+          <form class="auth-form">
+            <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" required /></div>
+            <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" required /></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" required /></div>
+            <div class="form-group"><label for="phone">Phone (Optional)</label><input type="tel" id="phone" /></div>
+            <div class="form-group"><label for="password">Password</label><input type="password" id="password" required /></div>
+            <div class="disclaimer"><p><strong>Investment Warning:</strong> No refunds. Invest at your own risk.</p></div>
             <button type="submit" class="btn btn-primary btn-full">Create Account</button>
           </form>
           <p class="auth-switch">Already have an account? <a href="#" onclick="event.preventDefault(); showPage('login')">Sign in</a></p>
@@ -87,21 +71,13 @@
       </div>
     </div>
 
-    <!-- Login Page -->
     <div id="login" class="page">
       <div class="auth-container">
         <div class="auth-card">
           <h2>Welcome Back</h2>
-          <p>Sign in to continue your micro-investment journey</p>
-          <form id="loginForm" class="auth-form">
-            <div class="form-group">
-              <label for="loginEmail">Email Address</label>
-              <input type="email" id="loginEmail" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="loginPassword">Password</label>
-              <input type="password" id="loginPassword" name="password" required />
-            </div>
+          <form class="auth-form">
+            <div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" required /></div>
+            <div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" required /></div>
             <button type="submit" class="btn btn-primary btn-full">Sign In</button>
           </form>
           <p class="auth-switch">Don't have an account? <a href="#" onclick="event.preventDefault(); showPage('register')">Sign up</a></p>
@@ -109,39 +85,27 @@
       </div>
     </div>
 
-    <!-- Businesses Page -->
     <div id="businesses" class="page">
       <div class="businesses-container">
-        <div class="businesses-header">
-          <h1>Verified Investment Opportunities</h1>
-          <p>All businesses are verified with LLC status and minimum $3K monthly revenue</p>
-        </div>
-        <div id="businessesList" class="businesses-grid">
+        <h1>Verified Investment Opportunities</h1>
+        <p>LLC-verified businesses earning $3K+ per month</p>
+        <div class="businesses-grid">
           <div class="business-card">
-            <div class="business-header">
-              <h3 class="business-name">EcoTech Solutions</h3>
-              <p class="business-description">Sustainable technology for modern homes</p>
-              <div class="business-stats">
-                <div class="business-stat">
-                  <span class="stat-value">$15,000</span>
-                  <span class="stat-label">Monthly Revenue</span>
-                </div>
-                <div class="business-stat">
-                  <span class="stat-value">4.5</span>
-                  <span class="stat-label">Rating</span>
-                </div>
-              </div>
+            <h3 class="business-name">EcoTech Solutions</h3>
+            <p>Sustainable technology for modern homes</p>
+            <div class="business-stats">
+              <span>$15,000 Monthly Revenue</span>
+              <span>4.5 Rating</span>
             </div>
             <div class="business-footer">
               <span class="risk-badge risk-A">Grade A</span>
-              <span class="max-investment">Max: $4,500</span>
+              <span>Max: $4,500</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Dashboard Page -->
     <div id="dashboard" class="page">
       <div class="dashboard-container">
         <h1>Dashboard Coming Soon</h1>
@@ -149,7 +113,6 @@
       </div>
     </div>
 
-    <!-- Portfolio Page -->
     <div id="portfolio" class="page">
       <div class="portfolio-container">
         <h1>Portfolio Coming Soon</h1>
@@ -158,29 +121,30 @@
     </div>
   </main>
 
-  <!-- Toast Notifications -->
+  <!-- Toast -->
   <div id="toastContainer" class="toast-container"></div>
 
-  <!-- JavaScript -->
+  <!-- Script -->
   <script>
     function showPage(pageId) {
-      console.log('Showing page:', pageId);
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(page => page.classList.remove('active'));
-      const targetPage = document.getElementById(pageId);
-      if (targetPage) {
-        targetPage.classList.add('active');
+      console.log("Showing page:", pageId);
+      const pages = document.querySelectorAll(".page");
+      pages.forEach(page => page.classList.remove("active"));
+
+      const target = document.getElementById(pageId);
+      if (target) {
+        target.classList.add("active");
         window.scrollTo(0, 0);
       } else {
-        console.error('Page not found:', pageId);
+        console.error("Page not found:", pageId);
       }
     }
 
     function logout() {
-      alert('Logout functionality coming soon!');
+      alert("Logout functionality coming soon!");
     }
 
-    console.log('JavaScript loaded successfully!');
+    console.log("JavaScript loaded");
   </script>
 </body>
 </html>
