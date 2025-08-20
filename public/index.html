@@ -1,200 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microvest - Micro Investments, Macro Impact</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microvest - Micro Investments, Macro Impact</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <img src="/assets/microvest-logo.svg" alt="Microvest" class="brand-logo">
-                <span class="brand-text">microvest</span>
-            </div>
-            <div class="nav-menu" id="navMenu">
-                <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
-                <a href="#" class="nav-link" onclick="showPage('businesses')">Businesses</a>
-                <a href="#" class="nav-link auth-required" onclick="showPage('dashboard')" style="display:none;">Dashboard</a>
-                <a href="#" class="nav-link auth-required" onclick="showPage('portfolio')" style="display:none;">Portfolio</a>
-            </div>
-            <div class="nav-actions">
-                <button class="btn btn-outline auth-guest" onclick="showPage('login')">Sign In</button>
-                <button class="btn btn-primary auth-guest" onclick="showPage('register')">Get Started</button>
-                <button class="btn btn-outline auth-required" onclick="logout()" style="display:none;">Sign Out</button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Home Page -->
-        <div id="home" class="page active">
-            <section class="hero">
-                <div class="container">
-                    <div class="hero-content">
-                        <h1>Start Your Investment Journey</h1>
-                        <p class="hero-subtitle">Invest as little as $5 in verified startups. Watch your portfolio and spending power grow with every smart investment decision.</p>
-                        <div class="hero-actions">
-                            <button class="btn btn-primary btn-large" onclick="showPage('register')">Start Investing</button>
-                            <button class="btn btn-outline btn-large" onclick="showPage('businesses')">Browse Businesses</button>
-                        </div>
-                    </div>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="/assets/microvest-logo.svg" alt="Microvest" class="brand-logo">
+        <span class="brand-text">microvest</span>
+      </div>
+      <div class="nav-menu" id="navMenu">
+        <a href="#" class="nav-link" onclick="event.preventDefault(); showPage('home')">Home</a>
+        <a href="#" class="nav-link" onclick="event.preventDefault(); showPage('businesses')">Businesses</a>
+        <a href="#" class="nav-link auth-required" onclick="event.preventDefault(); showPage('dashboard')" style="display:none;">Dashboard</a>
+        <a href="#" class="nav-link auth-required" onclick="event.preventDefault(); showPage('portfolio')" style="display:none;">Portfolio</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-outline auth-guest" onclick="event.preventDefault(); showPage('login')">Sign In</button>
+        <button class="btn btn-primary auth-guest" onclick="event.preventDefault(); showPage('register')">Get Started</button>
+        <button class="btn btn-outline auth-required" onclick="logout()" style="display:none;">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Home Page -->
+    <div id="home" class="page active">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1>Start Your Investment Journey</h1>
+            <p class="hero-subtitle">Invest as little as $5 in verified startups. Watch your portfolio and spending power grow with every smart investment decision.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-large" onclick="event.preventDefault(); showPage('register')">Start Investing</button>
+              <button class="btn btn-outline btn-large" onclick="event.preventDefault(); showPage('businesses')">Browse Businesses</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register" class="page">
+      <div class="auth-container">
+        <div class="auth-card">
+          <h2>Create Your Account</h2>
+          <p>Join thousands of micro-investors supporting innovative startups</p>
+          <form id="registerForm" class="auth-form">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <div class="disclaimer">
+              <p><strong>Investment Warning:</strong> Invest at your own risk. No refunds once funds are committed. Past performance is not indicative of future results.</p>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+          </form>
+          <p class="auth-switch">Already have an account? <a href="#" onclick="event.preventDefault(); showPage('login')">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+      <div class="auth-container">
+        <div class="auth-card">
+          <h2>Welcome Back</h2>
+          <p>Sign in to continue your micro-investment journey</p>
+          <form id="loginForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <input type="email" id="loginEmail" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" name="password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+          <p class="auth-switch">Don't have an account? <a href="#" onclick="event.preventDefault(); showPage('register')">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Businesses Page -->
+    <div id="businesses" class="page">
+      <div class="businesses-container">
+        <div class="businesses-header">
+          <h1>Verified Investment Opportunities</h1>
+          <p>All businesses are verified with LLC status and minimum $3K monthly revenue</p>
+        </div>
+        <div id="businessesList" class="businesses-grid">
+          <div class="business-card">
+            <div class="business-header">
+              <h3 class="business-name">EcoTech Solutions</h3>
+              <p class="business-description">Sustainable technology for modern homes</p>
+              <div class="business-stats">
+                <div class="business-stat">
+                  <span class="stat-value">$15,000</span>
+                  <span class="stat-label">Monthly Revenue</span>
                 </div>
-            </section>
-        </div>
-
-        <!-- Register Page -->
-        <div id="register" class="page">
-            <div class="auth-container">
-                <div class="auth-card">
-                    <h2>Create Your Account</h2>
-                    <p>Join thousands of micro-investors supporting innovative startups</p>
-                    
-                    <form id="registerForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number (Optional)</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required>
-                        </div>
-                        
-                        <div class="disclaimer">
-                            <p><strong>Investment Warning:</strong> Invest at your own risk. No refunds once funds are committed. Past performance is not indicative of future results.</p>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
-                    </form>
-                    
-                    <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></p>
+                <div class="business-stat">
+                  <span class="stat-value">4.5</span>
+                  <span class="stat-label">Rating</span>
                 </div>
+              </div>
             </div>
-        </div>
-
-        <!-- Login Page -->
-        <div id="login" class="page">
-            <div class="auth-container">
-                <div class="auth-card">
-                    <h2>Welcome Back</h2>
-                    <p>Sign in to continue your micro-investment journey</p>
-                    
-                    <form id="loginForm" class="auth-form">
-                        <div class="form-group">
-                            <label for="loginEmail">Email Address</label>
-                            <input type="email" id="loginEmail" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <input type="password" id="loginPassword" name="password" required>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
-                    </form>
-                    
-                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Sign up</a></p>
-                </div>
+            <div class="business-footer">
+              <span class="risk-badge risk-A">Grade A</span>
+              <span class="max-investment">Max: $4,500</span>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Businesses Page -->
-        <div id="businesses" class="page">
-            <div class="businesses-container">
-                <div class="businesses-header">
-                    <h1>Verified Investment Opportunities</h1>
-                    <p>All businesses are verified with LLC status and minimum $3K monthly revenue</p>
-                </div>
-                
-                <div id="businessesList" class="businesses-grid">
-                    <div class="business-card">
-                        <div class="business-header">
-                            <h3 class="business-name">EcoTech Solutions</h3>
-                            <p class="business-description">Sustainable technology for modern homes</p>
-                            
-                            <div class="business-stats">
-                                <div class="business-stat">
-                                    <span class="stat-value">$15,000</span>
-                                    <span class="stat-label">Monthly Revenue</span>
-                                </div>
-                                <div class="business-stat">
-                                    <span class="stat-value">4.5</span>
-                                    <span class="stat-label">Rating</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="business-footer">
-                            <span class="risk-badge risk-A">Grade A</span>
-                            <span class="max-investment">Max: $4,500</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dashboard Page -->
-        <div id="dashboard" class="page">
-            <div class="dashboard-container">
-                <h1>Dashboard Coming Soon</h1>
-                <p>Please register or login to access your dashboard.</p>
-            </div>
-        </div>
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page">
+      <div class="dashboard-container">
+        <h1>Dashboard Coming Soon</h1>
+        <p>Please register or login to access your dashboard.</p>
+      </div>
+    </div>
 
-        <!-- Portfolio Page -->
-        <div id="portfolio" class="page">
-            <div class="portfolio-container">
-                <h1>Portfolio Coming Soon</h1>
-                <p>Your investment portfolio will appear here.</p>
-            </div>
-        </div>
-    </main>
+    <!-- Portfolio Page -->
+    <div id="portfolio" class="page">
+      <div class="portfolio-container">
+        <h1>Portfolio Coming Soon</h1>
+        <p>Your investment portfolio will appear here.</p>
+      </div>
+    </div>
+  </main>
 
-    <!-- Toast Notifications -->
-    <div id="toastContainer" class="toast-container"></div>
+  <!-- Toast Notifications -->
+  <div id="toastContainer" class="toast-container"></div>
 
-    <!-- Inline JavaScript for Testing -->
-    <script>
-        function showPage(pageId) {
-            console.log('Showing page:', pageId);
-            
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Show the selected page
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.add('active');
-                window.scrollTo(0, 0);
-                console.log('Successfully showed page:', pageId);
-            } else {
-                console.error('Page not found:', pageId);
-            }
-        }
-        
-        function logout() {
-            alert('Logout functionality coming soon!');
-        }
-        
-        console.log('JavaScript loaded successfully!');
-    </script>
+  <!-- JavaScript -->
+  <script>
+    function showPage(pageId) {
+      console.log('Showing page:', pageId);
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo(0, 0);
+      } else {
+        console.error('Page not found:', pageId);
+      }
+    }
+
+    function logout() {
+      alert('Logout functionality coming soon!');
+    }
+
+    console.log('JavaScript loaded successfully!');
+  </script>
 </body>
 </html>
