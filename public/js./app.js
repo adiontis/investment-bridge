@@ -391,4 +391,4 @@ function logout() {
   }
 }
 
-console.log('JavaScript file loaded ✅'
+console.log('JavaScript file loaded ✅');
