@@ -1,4 +1,7 @@
-// Placeholder logic
-console.log("auth.js loaded");
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  updateAuthState();
+}
 
 window.logout = logout;
