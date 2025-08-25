@@ -11,3 +11,5 @@ function showPage(pageId) {
 
 // Expose globally
 window.showPage = showPage;
+
+window.logout = logout;
