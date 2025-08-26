@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Microvest Test</title>
+    <title>Microvest - Simple Test</title>
     <style>
-        .page { display: none; }
+        .page { display: none; padding: 20px; }
         .page.active { display: block; }
-        button { padding: 10px; margin: 5px; }
+        nav { background: #333; padding: 10px; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
     </style>
 </head>
 <body>
     <nav>
         <button onclick="showPage('home')">Home</button>
-        <button onclick="showPage('about')">About</button>
+        <button onclick="showPage('register')">Register</button>
+        <button onclick="showPage('login')">Login</button>
+        <button onclick="showPage('businesses')">Businesses</button>
     </nav>
 
     <div id="home" class="page active">
-        <h1>Home Page</h1>
-        <p>This is the home page</p>
+        <h1>Welcome to Microvest</h1>
+        <p>Start with just $5 investments!</p>
+        <button onclick="showPage('register')">Get Started</button>
     </div>
 
-    <div id="about" class="page">
-        <h1>About Page</h1>
-        <p>This is the about page</p>
+    <div id="register" class="page">
+        <h1>Register</h1>
+        <form onsubmit="handleRegister(event)">
+            <p>Email: <input type="email" id="email" required></p>
+            <p>Password: <input type="password" id="password" required></p>
+            <p><button type="submit">Create Account</button></p>
+        </form>
+    </div>
+
+    <div id="login" class="page">
+        <h1>Login</h1>
+        <p>Login form coming soon</p>
+    </div>
+
+    <div id="businesses" class="page">
+        <h1>Businesses</h1>
+        <p>Business listings coming soon</p>
     </div>
 
     <script>
         function showPage(pageId) {
             console.log('Switching to:', pageId);
             
-            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
-            // Show selected page
             const target = document.getElementById(pageId);
             if (target) {
                 target.classList.add('active');
-                console.log('Successfully showed:', pageId);
-            } else {
-                console.error('Page not found:', pageId);
             }
         }
         
-        console.log('Page navigation script loaded');
+        function handleRegister(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            alert('Registration clicked for: ' + email);
+            console.log('Registration attempt:', email);
+        }
+        
+        console.log('Microvest simple version loaded');
     </script>
 </body>
 </html>
