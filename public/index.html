@@ -1,70 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Microvest - Simple Test</title>
-    <style>
-        .page { display: none; padding: 20px; }
-        .page.active { display: block; }
-        nav { background: #333; padding: 10px; }
-        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background: #0056b3; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microvest - Micro Investments, Macro Impact</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <button onclick="showPage('home')">Home</button>
-        <button onclick="showPage('register')">Register</button>
-        <button onclick="showPage('login')">Login</button>
-        <button onclick="showPage('businesses')">Businesses</button>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-text">microvest</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showPage('businesses')">Businesses</a>
+                <a href="#" class="nav-link auth-required" onclick="showPage('dashboard')" style="display:none;">Dashboard</a>
+                <a href="#" class="nav-link auth-required" onclick="showPage('portfolio')" style="display:none;">Portfolio</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-outline auth-guest" onclick="showPage('login')">Sign In</button>
+                <button class="btn btn-primary auth-guest" onclick="showPage('register')">Get Started</button>
+                <button class="btn btn-outline auth-required" onclick="handleLogout()" style="display:none;">Sign Out</button>
+            </div>
+        </div>
     </nav>
 
-    <div id="home" class="page active">
-        <h1>Welcome to Microvest</h1>
-        <p>Start with just $5 investments!</p>
-        <button onclick="showPage('register')">Get Started</button>
-    </div>
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Start Your Investment Journey</h1>
+                        <p class="hero-subtitle">Invest as little as $5 in verified startups. Watch your portfolio and spending power grow with every smart investment decision.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary btn-large" onclick="showPage('register')">Start Investing</button>
+                            <button class="btn btn-outline btn-large" onclick="showPage('businesses')">Browse Businesses</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <div id="register" class="page">
-        <h1>Register</h1>
-        <form onsubmit="handleRegister(event)">
-            <p>Email: <input type="email" id="email" required></p>
-            <p>Password: <input type="password" id="password" required></p>
-            <p><button type="submit">Create Account</button></p>
-        </form>
-    </div>
+            <section class="features">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💰</div>
+                            <h3>Start Small, Grow Big</h3>
+                            <p>Begin with just $5 and grow your spending limit from $35 to $3,000 based on your investment activity.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>Verified Businesses</h3>
+                            <p>Every business is verified with LLC status, bank accounts, and minimum $3K monthly revenue.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Weekly Payouts</h3>
+                            <p>Get your returns every Wednesday through our secure escrow system.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Smart Risk Rating</h3>
+                            <p>AI-powered risk ratings help you make informed investment decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-    <div id="login" class="page">
-        <h1>Login</h1>
-        <p>Login form coming soon</p>
-    </div>
+        <!-- Register Page -->
+        <div id="register" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Create Your Account</h2>
+                    <p>Join thousands of micro-investors supporting innovative startups</p>
+                    
+                    <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        
+                        <div class="disclaimer">
+                            <p><strong>Investment Warning:</strong> Invest at your own risk. No refunds once funds are committed.</p>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    </form>
+                    
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></p>
+                </div>
+            </div>
+        </div>
 
-    <div id="businesses" class="page">
-        <h1>Businesses</h1>
-        <p>Business listings coming soon</p>
-    </div>
+        <!-- Login Page -->
+        <div id="login" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to continue your micro-investment journey</p>
+                    
+                    <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                    </form>
+                    
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Sign up</a></p>
+                </div>
+            </div>
+        </div>
 
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1>Your Investment Dashboard</h1>
+                    <div id="cooldownBanner" class="cooldown-banner" style="display:none;">
+                        <span>⏱️ Your limit is recalibrating for your next growth opportunity</span>
+                        <span id="cooldownTimer"></span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="card progress-card">
+                        <h3>Your Progress</h3>
+                        <div class="progress-info">
+                            <div class="current-limit">
+                                <span class="limit-amount" id="currentLimit">$35</span>
+                                <span class="limit-label">Current Limit</span>
+                            </div>
+                            <div class="tier-info">
+                                <span class="tier-level" id="currentTier">Tier 1</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                                </div>
+                                <span class="progress-text" id="progressText">Start investing to grow</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card stats-card">
+                        <h3>Investment Summary</h3>
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <span class="stat-value" id="totalInvested">$0</span>
+                                <span class="stat-label">Total Invested</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="activeInvestments">0</span>
+                                <span class="stat-label">Active</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value" id="completedInvestments">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Businesses Page -->
+        <div id="businesses" class="page">
+            <div class="businesses-container">
+                <div class="businesses-header">
+                    <h1>Verified Investment Opportunities</h1>
+                    <p>All businesses are verified with LLC status and minimum $3K monthly revenue</p>
+                </div>
+                
+                <div id="businessesList" class="businesses-grid">
+                    <!-- Businesses will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Page -->
+        <div id="portfolio" class="page">
+            <div class="portfolio-container">
+                <div class="portfolio-header">
+                    <h1>Your Portfolio</h1>
+                </div>
+                
+                <div id="portfolioContent">
+                    <div class="empty-state">
+                        <p>No investments yet. <a href="#" onclick="showPage('businesses')">Start investing</a> to see your portfolio here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- JavaScript -->
     <script>
+        let currentUser = null;
+
+        // Page Navigation
         function showPage(pageId) {
-            console.log('Switching to:', pageId);
+            console.log('Switching to page:', pageId);
             
+            // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
-            const target = document.getElementById(pageId);
-            if (target) {
-                target.classList.add('active');
+            // Show requested page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+                
+                // Load page-specific data
+                if (pageId === 'businesses') {
+                    loadBusinesses();
+                } else if (pageId === 'dashboard') {
+                    loadDashboard();
+                }
+            } else {
+                console.error('Page not found:', pageId);
             }
         }
-        
-        function handleRegister(event) {
+
+        // Registration Handler
+        async function handleRegister(event) {
             event.preventDefault();
-            const email = document.getElementById('email').value;
-            alert('Registration clicked for: ' + email);
-            console.log('Registration attempt:', email);
+            console.log('Handling registration...');
+            
+            const formData = new FormData(event.target);
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password'),
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                phone: formData.get('phone')
+            };
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showToast('Registration successful! Welcome to Microvest.', 'success');
+                    currentUser = result.user;
+                    localStorage.setItem('authToken', result.token);
+                    updateAuthUI();
+                    showPage('dashboard');
+                } else {
+                    showToast(result.error || 'Registration failed', 'error');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showToast('Registration failed. Please try again.', 'error');
+            }
         }
-        
-        console.log('Microvest simple version loaded');
+
+        // Login Handler
+        async function handleLogin(event) {
+            event.preventDefault();
+            console.log('Handling login...');
+            
+            const formData = new FormData(event.target);
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showToast('Welcome back!', 'success');
+                    currentUser = result.user;
+                    localStorage.setItem('authToken', result.token);
+                    updateAuthUI();
+                    showPage('dashboard');
+                } else {
+                    showToast(result.error || 'Login failed', 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showToast('Login failed. Please try again.', 'error');
+            }
+        }
+
+        // Logout Handler
+        function handleLogout() {
+            console.log('Logging out...');
+            currentUser = null;
+            localStorage.removeItem('authToken');
+            updateAuthUI();
+            showToast('Logged out successfully', 'success');
+            showPage('home');
+        }
+
+        // Update Authentication UI
+        function updateAuthUI() {
+            const guestElements = document.querySelectorAll('.auth-guest');
+            const userElements = document.querySelectorAll('.auth-required');
+            
+            if (currentUser) {
+                guestElements.forEach(el => el.style.display = 'none');
+                userElements.forEach(el => el.style.display = 'inline-flex');
+            } else {
+                guestElements.forEach(el => el.style.display = 'inline-flex');
+                userElements.forEach(el => el.style.display = 'none');
+            }
+        }
+
+        // Load Dashboard Data
+        async function loadDashboard() {
+            if (!currentUser) {
+                showPage('login');
+                return;
+            }
+            
+            try {
+                const token = localStorage.getItem('authToken');
+                const response = await fetch('/api/users/dashboard', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const dashboard = data.dashboard;
+                    
+                    // Update dashboard elements
+                    document.getElementById('currentLimit').textContent = `$${Math.round(dashboard.progress.currentLimit)}`;
+                    document.getElementById('currentTier').textContent = `Tier ${dashboard.progress.currentTier}`;
+                    document.getElementById('totalInvested').textContent = `$${Math.round(dashboard.stats.total_invested)}`;
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard:', error);
+            }
+        }
+
+        // Load Businesses
+        async function loadBusinesses() {
+            try {
+                const response = await fetch('/api/businesses');
+                const data = await response.json();
+                const businesses = data.businesses;
+                
+                const container = document.getElementById('businessesList');
+                container.innerHTML = businesses.map(business => `
+                    <div class="business-card">
+                        <div class="business-header">
+                            <h3 class="business-name">${business.name}</h3>
+                            <p class="business-description">${business.description}</p>
+                            
+                            <div class="business-stats">
+                                <div class="business-stat">
+                                    <span class="stat-value">$${Math.round(business.monthly_revenue).toLocaleString()}</span>
+                                    <span class="stat-label">Monthly Revenue</span>
+                                </div>
+                                <div class="business-stat">
+                                    <span class="stat-value">${business.avg_rating || 'New'}</span>
+                                    <span class="stat-label">Rating</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="business-footer">
+                            <span class="risk-badge risk-${business.risk_rating}">Grade ${business.risk_rating}</span>
+                            <span class="max-investment">Max: $${Math.round(business.max_investment_per_user).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load businesses:', error);
+                showToast('Failed to load businesses', 'error');
+            }
+        }
+
+        // Toast Notifications
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, duration);
+        }
+
+        // Check for existing session on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                // In a real app, you'd validate the token with the server
+                console.log('Found existing auth token');
+            }
+            console.log('Microvest app initialized');
+        });
     </script>
 </body>
 </html>
