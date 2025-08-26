@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Test Page</title>
+    <title>Microvest Test</title>
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+        button { padding: 10px; margin: 5px; }
+    </style>
 </head>
 <body>
-    <h1>JavaScript Test</h1>
-    <button onclick="testAlert()">Test Button 1</button>
-    <button onclick="console.log('Button 2 clicked')">Test Button 2</button>
-    
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('about')">About</button>
+    </nav>
+
+    <div id="home" class="page active">
+        <h1>Home Page</h1>
+        <p>This is the home page</p>
+    </div>
+
+    <div id="about" class="page">
+        <h1>About Page</h1>
+        <p>This is the about page</p>
+    </div>
+
     <script>
-        function testAlert() {
-            alert('JavaScript is working!');
-            console.log('Test button clicked');
+        function showPage(pageId) {
+            console.log('Switching to:', pageId);
+            
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+                console.log('Successfully showed:', pageId);
+            } else {
+                console.error('Page not found:', pageId);
+            }
         }
         
-        console.log('Script loaded');
+        console.log('Page navigation script loaded');
     </script>
 </body>
 </html>
