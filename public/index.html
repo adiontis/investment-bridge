@@ -24,7 +24,7 @@
             </div>
             <div class="nav-actions">
                 <button class="btn btn-outline auth-guest" onclick="showPage('login')">Sign In</button>
-                <button class="btn btn-primary auth-guest" onclick="showPage('register')">Get Started</button>
+                <button class="btn btn-primary auth-guest" onclick="showPage('signup-choice')">Get Started</button>
                 <button class="btn btn-outline auth-required" onclick="handleLogout()" style="display:none;">Sign Out</button>
             </div>
         </div>
@@ -40,7 +40,7 @@
                         <h1>Start Your Investment Journey</h1>
                         <p class="hero-subtitle">Invest as little as $5 in verified startups. Watch your portfolio and spending power grow with every smart investment decision.</p>
                         <div class="hero-actions">
-                            <button class="btn btn-primary btn-large" onclick="showPage('register')">Start Investing</button>
+                            <button class="btn btn-primary btn-large" onclick="showPage('signup-choice')">Start Investing</button>
                             <button class="btn btn-outline btn-large" onclick="showPage('businesses')">Browse Businesses</button>
                         </div>
                     </div>
@@ -75,43 +75,168 @@
             </section>
         </div>
 
-        <!-- Register Page -->
-        <div id="register" class="page">
+        <!-- Signup Choice Page -->
+        <div id="signup-choice" class="page">
+            <div class="auth-container">
+                <div class="signup-choice-container">
+                    <h2>Choose Your Account Type</h2>
+                    <p>Select how you'd like to use Microvest</p>
+                    
+                    <div class="signup-options">
+                        <div class="signup-option" onclick="showPage('register-investor')">
+                            <div class="option-icon">💰</div>
+                            <h3>I want to invest</h3>
+                            <p>Start investing in verified startups with as little as $5</p>
+                            <div class="option-features">
+                                <span>✓ $5 minimum investment</span>
+                                <span>✓ Weekly payouts</span>
+                                <span>✓ Progressive spending limits</span>
+                            </div>
+                            <button class="btn btn-primary">Sign Up as Investor</button>
+                        </div>
+                        
+                        <div class="signup-option" onclick="showPage('register-business')">
+                            <div class="option-icon">🏢</div>
+                            <h3>I have a business</h3>
+                            <p>Raise capital from everyday investors for your verified business</p>
+                            <div class="option-features">
+                                <span>✓ Access to investor network</span>
+                                <span>✓ Flexible funding options</span>
+                                <span>✓ Revenue-based eligibility</span>
+                            </div>
+                            <button class="btn btn-outline">Apply as Business</button>
+                        </div>
+                    </div>
+                    
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investor Registration Page -->
+        <div id="register-investor" class="page">
             <div class="auth-container">
                 <div class="auth-card">
-                    <h2>Create Your Account</h2>
+                    <h2>Create Investor Account</h2>
                     <p>Join thousands of micro-investors supporting innovative startups</p>
                     
-                    <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                    <form id="registerInvestorForm" class="auth-form" onsubmit="handleRegister(event, 'investor')">
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
+                            <label for="investorFirstName">First Name</label>
+                            <input type="text" id="investorFirstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
+                            <label for="investorLastName">Last Name</label>
+                            <input type="text" id="investorLastName" name="lastName" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="investorEmail">Email Address</label>
+                            <input type="email" id="investorEmail" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number (Optional)</label>
-                            <input type="tel" id="phone" name="phone">
+                            <label for="investorPhone">Phone Number (Optional)</label>
+                            <input type="tel" id="investorPhone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required>
+                            <label for="investorPassword">Password</label>
+                            <input type="password" id="investorPassword" name="password" required>
                         </div>
                         
                         <div class="disclaimer">
                             <p><strong>Investment Warning:</strong> Invest at your own risk. No refunds once funds are committed.</p>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                        <button type="submit" class="btn btn-primary btn-full">Create Investor Account</button>
                     </form>
                     
-                    <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></p>
+                    <p class="auth-switch">
+                        <a href="#" onclick="showPage('register-business')">Business owner?</a> • 
+                        <a href="#" onclick="showPage('login')">Already have an account?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Registration Page -->
+        <div id="register-business" class="page">
+            <div class="auth-container">
+                <div class="auth-card business-signup">
+                    <h2>Apply as Business</h2>
+                    <p>Get funding from our investor community</p>
+                    
+                    <form id="registerBusinessForm" class="auth-form" onsubmit="handleRegister(event, 'business')">
+                        <!-- Business Owner Info -->
+                        <h4>Business Owner Information</h4>
+                        <div class="form-group">
+                            <label for="businessOwnerFirstName">First Name</label>
+                            <input type="text" id="businessOwnerFirstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessOwnerLastName">Last Name</label>
+                            <input type="text" id="businessOwnerLastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessOwnerEmail">Email Address</label>
+                            <input type="email" id="businessOwnerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessOwnerPhone">Phone Number</label>
+                            <input type="tel" id="businessOwnerPhone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessOwnerPassword">Password</label>
+                            <input type="password" id="businessOwnerPassword" name="password" required>
+                        </div>
+
+                        <!-- Business Information -->
+                        <h4>Business Information</h4>
+                        <div class="form-group">
+                            <label for="businessName">Business Name</label>
+                            <input type="text" id="businessName" name="businessName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessDescription">Business Description</label>
+                            <textarea id="businessDescription" name="businessDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthlyRevenue">Monthly Revenue (USD)</label>
+                            <input type="number" id="monthlyRevenue" name="monthlyRevenue" min="3000" placeholder="Minimum $3,000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="businessState">State of Incorporation</label>
+                            <select id="businessState" name="businessState" required>
+                                <option value="">Select state...</option>
+                                <option value="AL">Alabama</option>
+                                <option value="CA">California</option>
+                                <option value="FL">Florida</option>
+                                <option value="NY">New York</option>
+                                <option value="TX">Texas</option>
+                                <!-- Add more states as needed -->
+                            </select>
+                        </div>
+                        
+                        <!-- Verification Requirements -->
+                        <div class="verification-requirements">
+                            <h4>Required for Verification</h4>
+                            <ul>
+                                <li>✓ Valid LLC registration documents</li>
+                                <li>✓ Business bank account verification</li>
+                                <li>✓ Minimum $3,000 monthly revenue</li>
+                                <li>✓ 2+ minute business pitch video</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="disclaimer">
+                            <p><strong>Business Application:</strong> Your application will be reviewed within 5-7 business days. You'll receive verification instructions after initial approval.</p>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">Submit Business Application</button>
+                    </form>
+                    
+                    <p class="auth-switch">
+                        <a href="#" onclick="showPage('register-investor')">Want to invest instead?</a> • 
+                        <a href="#" onclick="showPage('login')">Already have an account?</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -136,7 +261,7 @@
                         <button type="submit" class="btn btn-primary btn-full">Sign In</button>
                     </form>
                     
-                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Sign up</a></p>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showPage('signup-choice')">Sign up</a></p>
                 </div>
             </div>
         </div>
@@ -254,10 +379,10 @@
             }
         }
 
-        // Registration Handler
-        async function handleRegister(event) {
+        // Registration Handler - handles both investor and business
+        async function handleRegister(event, accountType) {
             event.preventDefault();
-            console.log('Handling registration...');
+            console.log('Handling registration for:', accountType);
             
             const formData = new FormData(event.target);
             const data = {
@@ -265,11 +390,21 @@
                 password: formData.get('password'),
                 firstName: formData.get('firstName'),
                 lastName: formData.get('lastName'),
-                phone: formData.get('phone')
+                phone: formData.get('phone'),
+                accountType: accountType
             };
 
+            // Add business-specific fields if business registration
+            if (accountType === 'business') {
+                data.businessName = formData.get('businessName');
+                data.businessDescription = formData.get('businessDescription');
+                data.monthlyRevenue = formData.get('monthlyRevenue');
+                data.businessState = formData.get('businessState');
+            }
+
             try {
-                const response = await fetch('/api/auth/register', {
+                const endpoint = accountType === 'business' ? '/api/auth/register-business' : '/api/auth/register';
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -280,11 +415,16 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    showToast('Registration successful! Welcome to Microvest.', 'success');
-                    currentUser = result.user;
-                    localStorage.setItem('authToken', result.token);
-                    updateAuthUI();
-                    showPage('dashboard');
+                    if (accountType === 'business') {
+                        showToast('Business application submitted! You\'ll hear from us within 5-7 business days.', 'success');
+                        showPage('home');
+                    } else {
+                        showToast('Registration successful! Welcome to Microvest.', 'success');
+                        currentUser = result.user;
+                        localStorage.setItem('authToken', result.token);
+                        updateAuthUI();
+                        showPage('dashboard');
+                    }
                 } else {
                     showToast(result.error || 'Registration failed', 'error');
                 }
@@ -442,11 +582,97 @@
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('authToken');
             if (token) {
-                // In a real app, you'd validate the token with the server
                 console.log('Found existing auth token');
             }
             console.log('Microvest app initialized');
         });
     </script>
+
+    <style>
+        /* Additional styles for signup choice */
+        .signup-choice-container {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .signup-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .signup-option {
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-align: center;
+        }
+
+        .signup-option:hover {
+            border-color: var(--gradient-start);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .option-features {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 16px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .business-signup {
+            max-width: 500px;
+        }
+
+        .business-signup h4 {
+            margin: 24px 0 16px 0;
+            color: var(--gradient-start);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .verification-requirements {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .verification-requirements ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+        }
+
+        .verification-requirements li {
+            padding: 4px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .signup-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </body>
 </html>
