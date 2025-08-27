@@ -158,88 +158,193 @@
         </div>
 
         <!-- Business Registration Page -->
-        <div id="register-business" class="page">
-            <div class="auth-container">
-                <div class="auth-card business-signup">
-                    <h2>Apply as Business</h2>
-                    <p>Get funding from our investor community</p>
-                    
-                    <form id="registerBusinessForm" class="auth-form" onsubmit="handleRegister(event, 'business')">
-                        <!-- Business Owner Info -->
-                        <h4>Business Owner Information</h4>
-                        <div class="form-group">
-                            <label for="businessOwnerFirstName">First Name</label>
-                            <input type="text" id="businessOwnerFirstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessOwnerLastName">Last Name</label>
-                            <input type="text" id="businessOwnerLastName" name="lastName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessOwnerEmail">Email Address</label>
-                            <input type="email" id="businessOwnerEmail" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessOwnerPhone">Phone Number</label>
-                            <input type="tel" id="businessOwnerPhone" name="phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessOwnerPassword">Password</label>
-                            <input type="password" id="businessOwnerPassword" name="password" required>
-                        </div>
-
-                        <!-- Business Information -->
-                        <h4>Business Information</h4>
-                        <div class="form-group">
-                            <label for="businessName">Business Name</label>
-                            <input type="text" id="businessName" name="businessName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessDescription">Business Description</label>
-                            <textarea id="businessDescription" name="businessDescription" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="monthlyRevenue">Monthly Revenue (USD)</label>
-                            <input type="number" id="monthlyRevenue" name="monthlyRevenue" min="3000" placeholder="Minimum $3,000" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="businessState">State of Incorporation</label>
-                            <select id="businessState" name="businessState" required>
-                                <option value="">Select state...</option>
-                                <option value="AL">Alabama</option>
-                                <option value="CA">California</option>
-                                <option value="FL">Florida</option>
-                                <option value="NY">New York</option>
-                                <option value="TX">Texas</option>
-                                <!-- Add more states as needed -->
-                            </select>
-                        </div>
-                        
-                        <!-- Verification Requirements -->
-                        <div class="verification-requirements">
-                            <h4>Required for Verification</h4>
-                            <ul>
-                                <li>✓ Valid LLC registration documents</li>
-                                <li>✓ Business bank account verification</li>
-                                <li>✓ Minimum $3,000 monthly revenue</li>
-                                <li>✓ 2+ minute business pitch video</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="disclaimer">
-                            <p><strong>Business Application:</strong> Your application will be reviewed within 5-7 business days. You'll receive verification instructions after initial approval.</p>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-full">Submit Business Application</button>
-                    </form>
-                    
-                    <p class="auth-switch">
-                        <a href="#" onclick="showPage('register-investor')">Want to invest instead?</a> • 
-                        <a href="#" onclick="showPage('login')">Already have an account?</a>
-                    </p>
+<div id="register-business" class="page">
+    <div class="auth-container">
+        <div class="auth-card business-signup">
+            <h2>Apply as Business</h2>
+            <p>Get funding from our investor community</p>
+            
+            <form id="registerBusinessForm" class="auth-form" onsubmit="handleRegister(event, 'business')">
+                <!-- Business Owner Info -->
+                <h4>Business Owner Information</h4>
+                <div class="form-group">
+                    <label for="businessOwnerFirstName">First Name</label>
+                    <input type="text" id="businessOwnerFirstName" name="firstName" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="businessOwnerLastName">Last Name</label>
+                    <input type="text" id="businessOwnerLastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessOwnerEmail">Email Address</label>
+                    <input type="email" id="businessOwnerEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessOwnerPhone">Phone Number</label>
+                    <input type="tel" id="businessOwnerPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessOwnerPassword">Password</label>
+                    <input type="password" id="businessOwnerPassword" name="password" required>
+                </div>
+
+                <!-- Business Information -->
+                <h4>Business Information</h4>
+                <div class="form-group">
+                    <label for="businessName">Business Name</label>
+                    <input type="text" id="businessName" name="businessName" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessDescription">Business Description</label>
+                    <textarea id="businessDescription" name="businessDescription" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="monthlyRevenue">Monthly Revenue (USD)</label>
+                    <input type="number" id="monthlyRevenue" name="monthlyRevenue" min="3000" placeholder="Minimum $3,000" required>
+                </div>
+                <div class="form-group">
+                    <label for="businessState">State of Incorporation</label>
+                    <select id="businessState" name="businessState" required>
+                        <option value="">Select state...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="CA">California</option>
+                        <option value="FL">Florida</option>
+                        <option value="NY">New York</option>
+                        <option value="TX">Texas</option>
+                        <option value="DE">Delaware</option>
+                        <option value="NV">Nevada</option>
+                    </select>
+                </div>
+
+                <!-- Bank Account Verification -->
+                <h4>Bank Account Verification</h4>
+                <div class="bank-verification-section">
+                    <p class="section-description">Connect your business bank account to verify revenue automatically</p>
+                    
+                    <div class="form-group">
+                        <label for="bankName">Bank Name</label>
+                        <select id="bankName" name="bankName" required>
+                            <option value="">Select your bank...</option>
+                            <option value="chase">Chase Bank</option>
+                            <option value="bofa">Bank of America</option>
+                            <option value="wells">Wells Fargo</option>
+                            <option value="citi">Citibank</option>
+                            <option value="usbank">US Bank</option>
+                            <option value="pnc">PNC Bank</option>
+                            <option value="other">Other Bank</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessAccountNumber">Business Account Number</label>
+                        <input type="text" id="businessAccountNumber" name="businessAccountNumber" required>
+                        <small>We'll verify this through secure banking APIs</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routingNumber">Routing Number</label>
+                        <input type="text" id="routingNumber" name="routingNumber" pattern="[0-9]{9}" required>
+                        <small>9-digit routing number</small>
+                    </div>
+                    
+                    <div class="bank-verification-info">
+                        <h5>🔒 Bank Verification Process:</h5>
+                        <ul>
+                            <li>We'll make 2 small deposits (under $1) to verify account ownership</li>
+                            <li>You'll confirm these amounts within 2 business days</li>
+                            <li>We analyze 3 months of transaction history to verify revenue</li>
+                            <li>All data is encrypted and handled securely</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Business Pitch Video -->
+                <h4>Business Pitch Video</h4>
+                <div class="video-upload-section">
+                    <p class="section-description">Upload a 2-5 minute video explaining your business and funding goals</p>
+                    
+                    <div class="form-group">
+                        <label for="pitchVideo">Upload Video File</label>
+                        <input type="file" id="pitchVideo" name="pitchVideo" accept="video/*" required>
+                        <small>Accepted formats: MP4, MOV, AVI (max 500MB)</small>
+                    </div>
+                    
+                    <div class="video-requirements">
+                        <h5>📹 Video Requirements:</h5>
+                        <ul>
+                            <li><strong>Length:</strong> 2-5 minutes</li>
+                            <li><strong>Quality:</strong> 720p minimum (1080p preferred)</li>
+                            <li><strong>Content:</strong> Introduce yourself and your team</li>
+                            <li><strong>Include:</strong> What your business does, target market, funding use</li>
+                            <li><strong>Show:</strong> Product demo if applicable</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Video Preview -->
+                    <div id="videoPreview" class="video-preview" style="display:none;">
+                        <video id="previewVideo" controls width="100%"></video>
+                        <p>Video uploaded successfully!</p>
+                    </div>
+                </div>
+
+                <!-- LLC Documentation -->
+                <h4>LLC Documentation</h4>
+                <div class="document-upload-section">
+                    <div class="form-group">
+                        <label for="llcCertificate">Articles of Incorporation/Organization</label>
+                        <input type="file" id="llcCertificate" name="llcCertificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <small>Upload your LLC formation documents (PDF preferred)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="einLetter">EIN Confirmation Letter (Optional)</label>
+                        <input type="file" id="einLetter" name="einLetter" accept=".pdf,.jpg,.jpeg,.png">
+                        <small>IRS EIN assignment letter if available</small>
+                    </div>
+                </div>
+                
+                <!-- Application Summary -->
+                <div class="application-summary">
+                    <h4>Application Review Process</h4>
+                    <div class="review-timeline">
+                        <div class="timeline-step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Initial Review (1-2 days)</strong>
+                                <p>We review your application and documents</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Bank Verification (2-3 days)</strong>
+                                <p>Verify account ownership and analyze revenue</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Final Approval (1-2 days)</strong>
+                                <p>Complete verification and activate your profile</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="disclaimer">
+                    <p><strong>Business Application:</strong> Your application will be reviewed within 5-7 business days. You'll receive verification instructions after initial approval.</p>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Submit Business Application</button>
+            </form>
+            
+            <p class="auth-switch">
+                <a href="#" onclick="showPage('register-investor')">Want to invest instead?</a> • 
+                <a href="#" onclick="showPage('login')">Already have an account?</a>
+            </p>
         </div>
+    </div>
+</div>
 
         <!-- Login Page -->
         <div id="login" class="page">
