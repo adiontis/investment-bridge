@@ -692,7 +692,152 @@
             console.log('Microvest app initialized');
         });
     </script>
+ // Video preview functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const videoInput = document.getElementById('pitchVideo');
+    const videoPreview = document.getElementById('videoPreview');
+    const previewVideo = document.getElementById('previewVideo');
+    
+    if (videoInput) {
+        videoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                previewVideo.src = url;
+                videoPreview.style.display = 'block';
+                
+                // Validate video duration (2-5 minutes)
+                previewVideo.addEventListener('loadedmetadata', function() {
+                    const duration = previewVideo.duration;
+                    const minutes = duration / 60;
+                    
+                    if (minutes < 2) {
+                        showToast('Video must be at least 2 minutes long', 'warning');
+                    } else if (minutes > 5) {
+                        showToast('Video should not exceed 5 minutes', 'warning');
+                    } else {
+                        showToast('Video uploaded successfully!', 'success');
+                    }
+                });
+            }
+        });
+    }
+    
+    // Bank account validation
+    const routingInput = document.getElementById('routingNumber');
+    if (routingInput) {
+        routingInput.addEventListener('input', function(e) {
+            const value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+            
+            if (value.length === 9) {
+                validateRoutingNumber(value);
+            }
+        });
+    }
+});
 
+// Validate routing number (basic validation)
+function validateRoutingNumber(routing) {
+    // Basic routing number validation algorithm
+    const digits = routing.split('').map(Number);
+    const checkSum = 3 * (digits[0] + digits[3] + digits[6]) +
+                     7 * (digits[1] + digits[4] + digits[7]) +
+                     (digits[2] + digits[5] + digits[8]);
+    
+    if (checkSum % 10 === 0) {
+        showToast('Valid routing number', 'success');
+        return true;
+    } else {
+        showToast('Invalid routing number', 'error');
+        return false;
+    }
+}
+
+// Enhanced business registration handler
+async function handleRegister(event, accountType) {
+    event.preventDefault();
+    console.log('Handling registration for:', accountType);
+    
+    const formData = new FormData(event.target);
+    
+    if (accountType === 'business') {
+        // Validate video file
+        const videoFile = formData.get('pitchVideo');
+        if (videoFile && videoFile.size > 500 * 1024 * 1024) { // 500MB limit
+            showToast('Video file too large. Maximum size is 500MB.', 'error');
+            return;
+        }
+        
+        // Validate routing number
+        const routingNumber = formData.get('routingNumber');
+        if (routingNumber && !validateRoutingNumber(routingNumber)) {
+            return;
+        }
+        
+        showToast('Processing application with video and bank verification...', 'info');
+        
+        // In a real app, you'd upload the files to cloud storage first
+        // then send the URLs to your API
+        
+        // Simulate file upload delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+    
+    const data = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        phone: formData.get('phone'),
+        accountType: accountType
+    };
+
+    // Add business-specific fields if business registration
+    if (accountType === 'business') {
+        data.businessName = formData.get('businessName');
+        data.businessDescription = formData.get('businessDescription');
+        data.monthlyRevenue = formData.get('monthlyRevenue');
+        data.businessState = formData.get('businessState');
+        data.bankName = formData.get('bankName');
+        data.businessAccountNumber = formData.get('businessAccountNumber');
+        data.routingNumber = formData.get('routingNumber');
+        // In production, you'd upload files and include URLs here
+        data.hasVideo = !!formData.get('pitchVideo').name;
+        data.hasLLCDocs = !!formData.get('llcCertificate').name;
+    }
+
+    try {
+        const endpoint = accountType === 'business' ? '/api/auth/register-business' : '/api/auth/register';
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            if (accountType === 'business') {
+                showToast('Business application submitted successfully! Check your email for next steps regarding bank verification.', 'success');
+                showPage('home');
+            } else {
+                showToast('Registration successful! Welcome to Microvest.', 'success');
+                currentUser = result.user;
+                localStorage.setItem('authToken', result.token);
+                updateAuthUI();
+                showPage('dashboard');
+            }
+        } else {
+            showToast(result.error || 'Registration failed', 'error');
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        showToast('Registration failed. Please try again.', 'error');
+    }
+}
     <style>
         /* Additional styles for signup choice */
         .signup-choice-container {
